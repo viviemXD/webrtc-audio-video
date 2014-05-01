@@ -18,8 +18,7 @@ This is the same as its parent project except it uses https and wws (secure webs
 - clone this repo to your machine, does not need to be to a web server
 - Edit index.html (insert you web server addres in two places)
 
-- Generate keys unless you have real ones
-  - place these keys in same folder as app.js
+- Generate keys unless you have real ones, place these keys in same folder as app.js
   - openssl genrsa -out webrtcwwsocket-key.pem 1024
   - openssl req -new -key webrtcwwsocket-key.pem -out webrtcwwsocket-csr.pem
   - openssl x509 -req -in webrtcwwsocket-csr.pem -signkey webrtcwwsocket-key.pem -out webrtcwwsocket-cert.pem
