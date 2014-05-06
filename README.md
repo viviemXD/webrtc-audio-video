@@ -16,7 +16,7 @@ A simple WebRTC test page and very simple pass through server using web socket t
 ####  Server Steps 
 
 - clone this repo to your machine, does not need to be to a web server
-- Edit index.html (insert you web server addres in two places)
+- Edit index.html (insert this machines ip addres in two places)
 - run   'node app.js'
 - You may get errors, if you do then reinstall socket.io in that folder, e.g. 'sudo npm install socket.io'
 
