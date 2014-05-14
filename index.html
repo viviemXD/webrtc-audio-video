@@ -45,7 +45,7 @@
   <h2>Use Chrome or Firefox, connect two browsers and off you go.</h2>
   <div class="left-section">
   <h3> Local Video </h3>
-  <video class="left-video" id="localvideo" autoplay></video>
+  <video class="left-video" id="localvideo" autoplay controls></video>
     <div class="buttons-left-section">
       <button type="button" onclick="startMedia();">Start media</button>
       <button type="button" onclick="stopMedia();">Stop media</button>
@@ -53,7 +53,7 @@
   </div>
   <div class="right-section">
   <h3> Remote Video </h3>
-  <video class="right-video" id="remotevideo" autoplay></video>
+  <video class="right-video" id="remotevideo" autoplay controls></video>
     <div class="buttons-right-section">
       <button type="button" onclick="connect();">Connect</button>
       <button type="button" onclick="disconnect();">Disconnect</button>
@@ -61,11 +61,11 @@
   </div>
 
   <!-- Replace with your server domain or ip address -->
-  <script src="http://10.148.80.115:1337/socket.io/socket.io.js"></script>
+  <script src="http://10.148.81.29:1337/socket.io/socket.io.js"></script>
   <script>
 
   // Replace with your server domain or ip address 
-  var socket = io.connect('http://10.148.80.115:1337/');
+  var socket = io.connect('http://10.148.81.29:1337/');
 
   var localvid = document.getElementById('localvideo');
   var remotevid = document.getElementById('remotevideo');
