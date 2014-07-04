@@ -168,6 +168,7 @@
   function onWebSocketMessage(evt) {
     if (evt.type === 'offer') {
       console.log("Received offer...")
+      console.log(evt);
       if (!mediaFlowing) {
         createPeerConnection();
         mediaFlowing = true;
