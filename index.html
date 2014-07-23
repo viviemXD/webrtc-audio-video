@@ -133,7 +133,7 @@
       mediaFlowing = true;
       pc.createOffer(setLocalDescAndSendMessage, onCreateOfferFailed, mediaConstraints);
     } else {
-      alert("Local stream not running yet - try again.");
+      alert("Local stream not running yet or media still flowing");
     }
   }
 
