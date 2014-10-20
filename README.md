@@ -1,16 +1,15 @@
 webrtc-web-socket
 =================                                                                                                                                                                                                                    
 
-A simple WebRTC test page and very simple pass through server using web socket transport
+A simple WebRTC test page and pass through server using web socket transport
 - Uses node.js and WebSocket 
-- Supports Chrome or Firefox
+- Supports Chrome and Firefox
 - No need for a Web Server
-
 
 
 ####  Prerequesites
 
--  Node.js  and WebSocket 
+-  Node.js and WebSocket 
 
 
 ####  Server Steps 
@@ -22,5 +21,5 @@ A simple WebRTC test page and very simple pass through server using web socket t
 
 ####  Client Steps
 
-- Point two browsers to  e.g. http://\<your ip address\>:1337  or  http://\<localhost\>:1337
+- Point two browsers to  e.g. http://\<your ip address\>:1337
 - Start media and connect
