@@ -2,7 +2,7 @@ webrtc-web-socket
 =================                                                                                                                                                                                                                    
 
 A simple WebRTC test page and very simple pass through server using web socket transport
-- Uses node.js and socket.io
+- Uses node.js and WebSocket 
 - Supports Chrome or Firefox
 - No need for a Web Server
 
@@ -10,15 +10,14 @@ A simple WebRTC test page and very simple pass through server using web socket t
 
 ####  Prerequesites
 
--  Node.js  and  socket.io
+-  Node.js  and WebSocket 
 
 
 ####  Server Steps 
 
 - clone this repo to your machine, does not need to be to a web server
-- Edit index.html (insert this machines ip addres in two places)
 - run   'node app.js'
-- You may get errors, if you do then reinstall socket.io in that folder, e.g. 'sudo npm install socket.io'
+- You may get errors, if you do then install WebSocket in that folder, e.g. 'sudo npm install WebSocket'
 
 
 ####  Client Steps
