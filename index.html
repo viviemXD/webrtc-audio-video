@@ -72,8 +72,8 @@
   var mediaFlowing = false;
   var removeVP8Codec = false;
   var mediaConstraints = {'mandatory': {
-                          'OfferToReceiveAudio':true, 
-                          'OfferToReceiveVideo':true }};
+                          'offerToReceiveAudio':true, 
+                          'offerToReceiveVideo':true }};
 
   function startMedia() {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia || navigator.msGetUserMedia;
