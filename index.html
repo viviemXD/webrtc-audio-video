@@ -136,10 +136,8 @@
     if (isFirefox && removeVP8Codec) {
       // Remove VP8 from offer every time
       sessionDescription.sdp = removeVP8(sessionDescription.sdp); 
-      pc.setLocalDescription(sessionDescription);
-    } else {
-      pc.setLocalDescription(sessionDescription);
     }
+    pc.setLocalDescription(sessionDescription);
 
     console.log("Sending: SDP");
     console.log(sessionDescription);
@@ -157,10 +155,9 @@
     if (isFirefox && removeVP8Codec) {
       // Remove VP8 from offer every time
       sessionDescription.sdp = removeVP8(sessionDescription.sdp); 
-      pc.setLocalDescription(sessionDescription);
-    } else {
-      pc.setLocalDescription(sessionDescription);
-    }   
+    }
+    pc.setLocalDescription(sessionDescription);
+       
     console.log("Sending: SDP");
     console.log(sessionDescription);
 
