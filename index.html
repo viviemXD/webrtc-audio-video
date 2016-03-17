@@ -62,7 +62,7 @@
 
   <script>
   var hostArray = window.location.host.split(':');
-  var serverLoc = 'ws://' + hostArray[0] + ':1337/'
+  var serverLoc = 'wss://' + hostArray[0] + ':443/'
   var socket = new WebSocket(serverLoc); 
 
   var localvid = document.getElementById('localvideo');
@@ -76,29 +76,69 @@
                           'offerToReceiveVideo':true }};
 
   function startMedia() {
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    window.URL = window.URL || window.webkitURL;
-    navigator.getUserMedia({video: true, audio: true}, successCallback, errorCallback);
-  }
+    //navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    //window.URL = window.URL || window.webkitURL;
+    //navigator.getUserMedia({video: true, audio: true}, successCallback, errorCallback);
 
-  function successCallback(stream) {
-    localStream = stream;
-    if (localvid.mozSrcObject) {
-      localvid.mozSrcObject = stream;
-      localvid.play();
-    } else {
-      try {
-        localvid.src = window.URL.createObjectURL(stream);
-        localvid.play();
-      } catch(e) {
-        console.log("Error setting video src: ", e);
+    var promisifiedOldGUM = function(constraints, successCallback, errorCallback) {
+
+      // First get ahold of getUserMedia, if present
+      var getUserMedia = (navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia);
+
+      // Some browsers just don't implement it - return a rejected promise with an error
+      // to keep a consistent interface
+      if(!getUserMedia) {
+        return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
       }
-    }
-  }
 
-  function errorCallback(error) {
-    console.error('An error occurred: [CODE ' + error.code + ']');
-    return;
+      // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+      return new Promise(function(successCallback, errorCallback) {
+        getUserMedia.call(navigator, constraints, successCallback, errorCallback);
+      });
+    }
+
+    // Older browsers might not implement mediaDevices at all, so we set an empty object first
+    if(navigator.mediaDevices === undefined) {
+      navigator.mediaDevices = {};
+    }
+
+    // Some browsers partially implement mediaDevices. We can't just assign an object
+    // with getUserMedia as it would overwrite existing properties.
+    // Here, we will just add the getUserMedia property if it's missing.
+    if(navigator.mediaDevices.getUserMedia === undefined) {
+      navigator.mediaDevices.getUserMedia = promisifiedOldGUM;
+    }
+
+    // Prefer camera resolution nearest to 1280x720.
+    var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(function(stream) {
+        localStream = stream;
+        if (localvid.mozSrcObject) {
+          localvid.mozSrcObject = stream;
+          localvid.play();
+        } else {
+          try {
+            localvid.src = window.URL.createObjectURL(stream);
+            localvid.play();
+          } catch(e) {
+            console.log("Error setting video src: ", e);
+          }
+        }
+      })
+      .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+        if (location.protocol === 'http:') {
+          alert('Please test this using HTTPS.');
+        } else {
+          alert('Have you enabled the appropriate flag? see README.md');
+        }
+        console.error(e);
+    });
+
   }
 
   // stop local video

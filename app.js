@@ -1,24 +1,30 @@
 // This is the node.js server application
 
 var WebSocketServer = require('websocket').server;
-var http = require('http');
+var https = require('https');
 var fs = require('fs');
 var clients = []; 
 
-var server = http.createServer(function(request, response) {
+
+var options = {
+  key: fs.readFileSync('webrtcwwsocket-key.pem'),
+  cert: fs.readFileSync('webrtcwwsocket-cert.pem'),
+};
+
+var server = https.createServer(options, function(request, response) {
   fs.readFile(__dirname + '/index.html',
   function (err, data) {
     if (err) {
       response.writeHead(500);
       return response.end('Error loading index.html');
-    }   
+    }
     response.writeHead(200);
     response.end(data);
-  }); 
+  });
 });
 
-server.listen(1337, function() {
-  console.log((new Date()) + " Server is listening on port 1337");
+server.listen(443, function() {
+  console.log((new Date()) + " Server is listening on port 443");
 });
 
 // create the server
