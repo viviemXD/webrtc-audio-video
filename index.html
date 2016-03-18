@@ -76,9 +76,6 @@
                           'offerToReceiveVideo':true }};
 
   function startMedia() {
-    //navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    //window.URL = window.URL || window.webkitURL;
-    //navigator.getUserMedia({video: true, audio: true}, successCallback, errorCallback);
 
     var promisifiedOldGUM = function(constraints, successCallback, errorCallback) {
 
@@ -138,18 +135,12 @@
         }
         console.error(e);
     });
-
   }
 
   // stop local video
   function stopMedia() {
-    if (localvid.mozSrcObject) {
-      localvid.mozSrcObject.stop();
-      localvid.src = null;
-    } else {
-      localvid.src = "";
-      localStream.stop();
-    }
+    localvid.src = "";
+    localStream.getVideoTracks()[0].stop();
   }
 
   // send SDP over web socket 
@@ -236,8 +227,8 @@
     mediaFlowing = false;    
   }
 
-  function onCreateAnswerFailed() {
-    console.log("Create Answer failed");
+  function onCreateAnswerFailed(error) {
+    console.log("Create Answer failed:",error);
   }
 
   socket.addEventListener("message", onWebSocketMessage, false);
@@ -257,10 +248,10 @@
 
       var remoteDescription = message.peerDescription;
       
-      var RTCSessionDescription = window.mozRTCSessionDescription || window.webkitRTCSessionDescription || window.RTCSessionDescription;
+      var RTCSessionDescription = window.RTCSessionDescription || window.webkitRTCSessionDescription || window.RTCSessionDescription;
       pc.setRemoteDescription(new RTCSessionDescription(remoteDescription), function() {
         console.log('Sending answer...');
-        pc.createAnswer(setLocalDescAndSendMessageAnswer, onCreateAnswerFailed, mediaConstraints);
+        pc.createAnswer(setLocalDescAndSendMessageAnswer, onCreateAnswerFailed);
       }, function() {  
         console.log('Error setting remote description');   
       });
@@ -269,12 +260,12 @@
       console.log('Received answer...');
       console.log('Setting remote session description...' );
       var remoteDescription = message.peerDescription;
-      var RTCSessionDescription = window.mozRTCSessionDescription || window.webkitRTCSessionDescription || window.RTCSessionDescription;
+      var RTCSessionDescription = window.RTCSessionDescription || window.webkitRTCSessionDescription || window.RTCSessionDescription;
       pc.setRemoteDescription(new RTCSessionDescription(remoteDescription));
 
     } else if (message.messageType === "iceCandidate" && mediaFlowing) {
       console.log('Received ICE candidate...');
-      var RTCIceCandidate = window.mozRTCIceCandidate || window.webkitRTCIceCandidate || window.RTCIceCandidate;
+      var RTCIceCandidate = window.RTCIceCandidate || window.webkitRTCIceCandidate || window.RTCIceCandidate;
       var candidate = new RTCIceCandidate({sdpMLineIndex:message.candidate.sdpMLineIndex, sdpMid:message.candidate.sdpMid, candidate:message.candidate.candidate});
       pc.addIceCandidate(candidate );
 
@@ -286,7 +277,7 @@
 
   function createPeerConnection() {
     console.log("Creating peer connection");
-    RTCPeerConnection = window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+    RTCPeerConnection = window.webkitRTCPeerConnection || window.RTCPeerConnection;
     var pc_config = {"iceServers":[]};
     try {
       pc = new RTCPeerConnection(pc_config);
