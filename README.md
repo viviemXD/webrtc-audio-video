@@ -1,11 +1,11 @@
 webrtc-web-socket
 =================                                                                                                                                                                                                                    
 
-A simple WebRTC audio / Video call test page using web socket transport
+A simple WebRTC Audio / Video call test page using web socket transport
 - Uses node.js and WebSocket.
 - Supports Chrome and Firefox.
 - No need for a Web Server.
-- Supports HTTPS and secure secure websocket wss.
+- Supports HTTPS and secure websocket wss.
 
 
 ####  Prerequesites
@@ -20,12 +20,12 @@ A simple WebRTC audio / Video call test page using web socket transport
   -  openssl genrsa -out webrtcwwsocket-key.pem 1024
   -  openssl req -new -key webrtcwwsocket-key.pem -out webrtcwwsocket-csr.pem
   -  openssl x509 -req -in webrtcwwsocket-csr.pem -signkey webrtcwwsocket-key.pem -out webrtcwwsocket-cert.pem
-- run   'sudo node app.js'
+- run  'sudo node app.js'
 - You may get errors, if you do then install WebSocket in that folder, e.g. 'sudo npm install WebSocket'
 
 
 ####  Client Steps
 
 - Point two browsers to  e.g. https://\<your ip address\>
-- Two clients can be on the same machine or on two separate machines.
+- Two clients can be browsers on the same machine, tabs in the same browser or on two separate machines.
 - Start media and connect.
