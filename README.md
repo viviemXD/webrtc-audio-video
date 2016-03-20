@@ -10,13 +10,13 @@ A simple WebRTC audio / Video call test page using web socket transport
 
 ####  Prerequesites
 
--  Node.js and WebSocket 
+- Node.js and WebSocket 
 
 
 ####  Server Steps 
 
-- clone this repo to your machine, does not need to be to a web server.
-- Generate keys unless you have real ones, run these commands in the same folder as app.js (find equivalant commands for Windows or Linux these are for mac).
+- Clone this repo to your machine, does not need to be to a web server.
+- Generate keys unless you have real ones, run these commands in the same folder as app.js (find equivalant commands for Windows or Linux these are for Mac).
   -  openssl genrsa -out webrtcwwsocket-key.pem 1024
   -  openssl req -new -key webrtcwwsocket-key.pem -out webrtcwwsocket-csr.pem
   -  openssl x509 -req -in webrtcwwsocket-csr.pem -signkey webrtcwwsocket-key.pem -out webrtcwwsocket-cert.pem

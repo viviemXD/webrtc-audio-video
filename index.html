@@ -42,7 +42,7 @@
 <body>
 
   <h1>WebRTC Audio \ Video  Demo using node.js and WebSocket</h1>
-  <h2>Use Chrome or Firefox, connect two browsers and off you go.</h2>
+  <h2>Use Chrome or Firefox, connect two browser tabs and off you go.</h2>
   <div class="left-section">
   <h3> Local Video </h3>
   <video class="left-video" id="localvideo" autoplay controls></video>
@@ -114,16 +114,11 @@
     navigator.mediaDevices.getUserMedia(constraints)
       .then(function(stream) {
         localStream = stream;
-        if (localvid.mozSrcObject) {
-          localvid.mozSrcObject = stream;
+        try {
+          localvid.src = window.URL.createObjectURL(stream);
           localvid.play();
-        } else {
-          try {
-            localvid.src = window.URL.createObjectURL(stream);
-            localvid.play();
-          } catch(e) {
-            console.log("Error setting video src: ", e);
-          }
+        } catch(e) {
+          console.log("Error setting video src: ", e);
         }
       })
       .catch(function(err) {

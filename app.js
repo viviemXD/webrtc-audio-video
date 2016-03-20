@@ -6,6 +6,7 @@ var fs = require('fs');
 var clients = []; 
 
 
+// change key and cert if you have other ones you use with a different name
 var options = {
   key: fs.readFileSync('webrtcwwsocket-key.pem'),
   cert: fs.readFileSync('webrtcwwsocket-cert.pem'),
