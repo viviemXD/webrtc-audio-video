@@ -139,7 +139,6 @@
   }
 
   function removeVP8(sdp) {
-    updated_sdp = sdp.replace("m=video 9 UDP/TLS/RTP/SAVPF 100 101 116 117 120 96\r\n","m=video 9 UDP/TLS/RTP/SAVPF 120 100 101 116 117 96\r\n");
     updated_sdp = sdp.replace("m=video 9 UDP/TLS/RTP/SAVPF 120 126 97\r\n","m=video 9 UDP/TLS/RTP/SAVPF 126 120 97\r\n");
     return updated_sdp;
   }
