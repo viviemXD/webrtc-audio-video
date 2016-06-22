@@ -42,7 +42,7 @@
 <body>
 
   <h1>WebRTC Audio \ Video  Demo using node.js and WebSocket</h1>
-  <h2>Use Chrome or Firefox, connect two browser tabs and off you go.</h2>
+  <h2>Use Chrome or Firefox, connect two browsers and off you go.</h2>
   <div class="left-section">
   <h3> Local Video </h3>
   <video class="left-video" id="localvideo" autoplay controls></video>
@@ -70,7 +70,7 @@
   var localStream = null;
   var pc = null;
   var mediaFlowing = false;
-  var removeVP8Codec = false;
+  var useH264 = true;
   var mediaConstraints = {'mandatory': {
                           'offerToReceiveAudio':true, 
                           'offerToReceiveVideo':true }};
@@ -138,22 +138,27 @@
     localStream.getVideoTracks()[0].stop();
   }
 
-  function removeVP8(sdp) {
-    updated_sdp = sdp.replace("m=video 9 UDP/TLS/RTP/SAVPF 120 126 97\r\n","m=video 9 UDP/TLS/RTP/SAVPF 126 120 97\r\n");
+  function useH264Codec(sdp) {
+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if (isFirefox)
+        updated_sdp = sdp.replace("m=video 9 UDP/TLS/RTP/SAVPF 120 126 97\r\n","m=video 9 UDP/TLS/RTP/SAVPF 126 120 97\r\n");
+    else
+        updated_sdp = sdp.replace("m=video 9 UDP/TLS/RTP/SAVPF 100 101 107 116 117 96 97 99 98\r\n","m=video 9 UDP/TLS/RTP/SAVPF 107 101 100 116 117 96 97 99 98\r\n");
+
     return updated_sdp;
   }
 
   function setLocalDescAndSendMessageOffer(sessionDescription) {
 
-    var isFirefox = typeof InstallTrigger !== 'undefined'; 
-
-    if (isFirefox && removeVP8Codec) {
-      // Remove VP8 from offer every time
-      sessionDescription.sdp = removeVP8(sessionDescription.sdp); 
+    if (useH264) {
+      // use H264 video codec in offer every time
+      sessionDescription.sdp = useH264Codec(sessionDescription.sdp); 
     }
+
     pc.setLocalDescription(sessionDescription);
 
-    console.log("Sending: SDP");
+    console.log("Sending SDP offer: ");
     console.log(sessionDescription);
 
     socket.send(JSON.stringify({
@@ -164,15 +169,13 @@
 
   function setLocalDescAndSendMessageAnswer(sessionDescription) {
 
-    var isFirefox = typeof InstallTrigger !== 'undefined'; 
-
-    if (isFirefox && removeVP8Codec) {
-      // Remove VP8 from offer every time
-      sessionDescription.sdp = removeVP8(sessionDescription.sdp); 
+    if (useH264) {
+      // use H264 video codec in offer every time 
+      sessionDescription.sdp = useH264Codec(sessionDescription.sdp);
     }
     pc.setLocalDescription(sessionDescription);
        
-    console.log("Sending: SDP");
+    console.log("Sending SDP answer:");
     console.log(sessionDescription);
 
     socket.send(JSON.stringify({
