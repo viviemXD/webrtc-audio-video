@@ -6,6 +6,7 @@ A simple WebRTC Audio / Video call test page using web socket transport
 - Supports Chrome and Firefox.
 - No need for a Web Server.
 - Supports HTTPS and secure websocket wss.
+- Supports H264 and VP8, see useH264 flag in code in index.html.
 
 
 ####  Prerequesites
@@ -15,7 +16,7 @@ A simple WebRTC Audio / Video call test page using web socket transport
 
 ####  Server Steps 
 
-- Clone this repo to your machine, does not need to be to a web server.
+- Clone this repo to your machine, does not need to be to a traditional web server. Can be same machine as browser or another one.
 - Generate keys unless you have real ones, run these commands in the same folder as app.js (find equivalant commands for Windows or Linux these are for Mac).
   -  openssl genrsa -out webrtcwwsocket-key.pem 1024
   -  openssl req -new -key webrtcwwsocket-key.pem -out webrtcwwsocket-csr.pem
