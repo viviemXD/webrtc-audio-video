@@ -1,5 +1,5 @@
-webrtc-web-socket
-=================                                                                                                                                                                                                                    
+webrtc-audio-video
+==================                                                                                                                                                                                                                    
 
 A simple WebRTC Audio / Video call test page using web socket transport
 - Uses node.js and WebSocket.
