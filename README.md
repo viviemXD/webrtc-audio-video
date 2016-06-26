@@ -27,6 +27,6 @@ A simple WebRTC Audio / Video call test page using web socket transport
 
 ####  Client Steps
 
-- Point two browsers to  e.g. https://\<your ip address\>
+- Point two browsers to  e.g. https://\<your ip address\>   accept self signed certs
 - Two clients can be browsers on the same machine, tabs in the same browser or on two separate machines.
 - Start media and connect.
