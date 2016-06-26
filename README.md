@@ -22,7 +22,7 @@ A simple WebRTC Audio / Video call test page using web socket transport
   -  openssl req -new -key webrtcwwsocket-key.pem -out webrtcwwsocket-csr.pem
   -  openssl x509 -req -in webrtcwwsocket-csr.pem -signkey webrtcwwsocket-key.pem -out webrtcwwsocket-cert.pem
 - run  'sudo node app.js'
-- You may get errors, if you do then install WebSocket in that folder, e.g. 'sudo npm install WebSocket'
+- You may get errors, if you do then install WebSocket in that folder, e.g. 'sudo npm install websocket'
 
 
 ####  Client Steps
